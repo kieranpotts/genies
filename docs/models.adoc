@@ -1,0 +1,49 @@
+= Models
+
+See https://ollama.com/library for the full library of open source LLMs that can be used with Ollama.
+
+Popular models include Llama, Qwen, and DeepSeek. But there are lots of variations of these, and you will want to choose one that is going to run well on your particular hardware.
+
+The following are some options for models to run on general-purpose laptops and desktops.
+
+== Ultra-light models (1-2B)
+
+These will run on almost any computer with 8GB+ RAM:
+
+* *Gemma 3 1B* (`ollama run gemma3:1b`): Google's smallest Gemma, surprisingly capable for chat. There's also a Gemma 3n variant (`gemma3n:e2b`) specifically targeting lightweight devices like laptops, behaving like a 2-4B model during inference while being very efficient.
+
+* *Llama 3.2 1B / 3B* (`ollama run llama3.2:1b` or `llama3.2:3b`): Meta's Llama 3.2 goes small with 1B and 3B models. Great for chat and multilingual tasks.
+
+* *Qwen 2.5 1.5B* (`ollama run qwen2.5:1.5b`): Optimized for long-context and multilingual tasks.
+
+* *DeepSeek R1 1.5B* (`ollama run deepseek-r1:1.5b`): A reasoning-focused model distilled from Qwen 2.5, designed for math and logic tasks and remarkably efficient.
+
+== Small but capable models (`3-4B`)
+
+These models offer a good balance of quality and speed, and need only ~8GB RAM.
+
+* *Phi-3 Mini* (`ollama run phi3:mini`): A 3.8B parameter model focused on high-quality reasoning, designed for memory/compute-constrained environments and latency-bound environments.
+
+* *Gemma 3 4B* (`ollama run gemma3:4b`): Solid general-purpose model from Google.
+
+* *SmallThinker 3B* (`ollama run smallthinker`): A compact reasoning model fine-tuned from Qwen2.5-3B-Instruct. Good for CPU-heavy or very low-VRAM setups, and if you want chain-of-thought style behavior.
+
+== Medium models (7-8B)
+
+These are popular, well-rounded models that work well on PCS with ~16GB RAM.
+
+* *Mistral 7B* (`ollama run mistral`): Fast, accurate, and great for coding and following instructions.
+
+* *Qwen 2.5 7B* (`ollama run qwen2.5:7b`): Pre-trained on Alibaba's latest large-scale datasets.
+
+* *Llama 3.1 8B* (`ollama run llama3.1:8b`): Runs smoothly on local machines with Ollama's optimizations cutting memory use to fit under 8GB.
+
+== Larger models
+
+You're pushing it a bit, running these models on 16GB RAM, but they should be fine on ~32GB RAM.
+
+* *Gemma 3 12B* (`ollama run gemma3:12b`)
+
+== Computer programming models
+
+For software coding, consider models like *Qwen 2.5 Coder*, *CodeLlama*, and *DeepSeek Coder*. These tend to outperform general-purpose models for coding tasks, because these models have been fine-tuned for coding tasks.

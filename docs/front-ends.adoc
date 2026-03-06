@@ -1,0 +1,60 @@
+= Front-ends
+
+Ollama has a built-in chat interface, via which you can interact with your local models via the CLI. Use `ollama run <model-name>` to launch it.
+
+Ollama's is a minimal model interface. Models are not given access to your filesystem or other external systems, so out-of-the-box you can't use this interface as a coding agent, for example.
+
+To integrate your local models with other systems, you will need to interact with them via a front-end.
+
+== VS Code extensions
+
+If you use the GitHub Copilot Chat extension in VS Code, you can configure is to use Ollama as a provider. This means API requests will be routed to your locally-running Ollama server, rather than GitHub's servers.
+
+First, check that Ollama is running locally, and serving its HTTP API. Load http://localhost:11434/ in your web browser. You should see "Ollama is running". If not, run `ollama serve`.
+
+Open the model picker in Copilot Chat. This is currently a dropdown at the bottom of the chat input box in the Copilot Chat panel. In the Language Models editor, check to see if your locally-installed models have been automatically discovered. They may already be listed under the "Ollama" provider. You can press the eye icon next to the models to make them available from the model selection dropdown.
+
+If your locally-installed models are not listed, click the *Add Models* button, and choose "Ollama". Type `http://localhost:11434/`. VS Code will retrieve the list of available models from Ollama's API, which is served from that URL. Select the models you want.
+
+You can now choose your local models from the Copilot Chat model picker.
+
+''''
+
+Even when using local Ollama models, Copilot CHat still requires you to be logged into GitHub to use it. If you want to be able to work fully offline, you will need to use a different chat interface.
+
+Alternative coding agents for VS Code, which can be configured to use Ollama as a back-end, include:
+
+* https://marketplace.visualstudio.com/items?itemName=Continue.continue[Continue]
+* https://marketplace.visualstudio.com/items?itemName=saoudrizwan.claude-dev[Cline]
+* https://marketplace.visualstudio.com/items?itemName=rjmacarthy.twinny[Twinny]
+
+Continue is an open source extension that connects directly to Ollama. It supports chat, inline autocompletion, and the ability to select code and ask questions about it.
+
+Cline is more suited to multi-file and whole-repo changes. It is also more agentic. It can read, write, and navigate across files autonomously.
+
+Continue and Cline also support using Ollama models in agent mode.
+
+Twinny is a lightweight coding agent focused on autocomplete. It is built specifically for local models served via Ollama. It's a good option if you want to use your local models only for fast tab completion.
+
+== Command line interfaces
+
+If you would like a terminal-based interface, https://aider.chat/[Aider] will offer the closest user experience to Claude Code or Copilot CLI. It's a terminal based AI coding assistant that supports Ollama as a back-end via Ollama's OpenAPI-compatible endpoint. It works across a whole Git repository. You can ask it to edit files and commit changes. Run it with:
+
+[source]
+----
+aider --model ollama_chat/qwen2.5-coder:7b
+----
+
+See the website for further https://aider.chat/docs/llms/ollama.html[instructions for using Aider with Ollama].
+
+https://github.com/TheR1D/shell_gpt[ShellGPT] (sgpt) is a general-purpose CLI tool that focuses on piping commands into it. Common use cases including explaining errors and analyzing log files. Examples:
+
+[source]
+----
+sgpt --model ollama/mistral "explain this error: segfault at 0x00"
+cat error.log | sgpt "what's wrong here?"
+----
+
+https://github.com/danielmiessler/Fabric[Fabric] is another CLI tool that is built around the concept of "patterns", which are reusable prompt templates for common tasks like summarizing output and writing commit messages. Like sgpt, it works well piped into other commands.
+
+Finally, https://terminaltrove.com/oterm/[Oterm] is a terminal UI (TUI) that is more visually appealing than a raw CLI.

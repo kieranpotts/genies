@@ -21,15 +21,30 @@ Stop it:
 ./run/stop
 ----
 
-Use `./run/ollama` to interact with Ollama inside the container. All arguments are passed  verbatim to the `ollama` command inside the container.
+Use `./run/ollama` to interact with Ollama inside the container. All arguments are passed verbatim to the `ollama` program, which runs in the container.
 
 To pull a model:
 
-* DeepSeek-V3/R1: `./run/ollama pull deepseek-r1`
-* Llama 3.3: `./run/ollama pull llama3.3`
-* Qwen: `./run/ollama pull qwen`
+[source,bash]
+----
+./run/ollama run <model-name>
+----
 
-See https://ollama.com/library for the full model library.
+Example:
+
+[source,bash]
+----
+./run/ollama run llama3.3
+----
+
+See the documentation on link:./models.adoc[models] to learn about your choices.
+
+List all the models you have installed:
+
+[source,bash]
+----
+./run/ollama ls
+----
 
 To run a model:
 
@@ -38,13 +53,8 @@ To run a model:
 ./run/ollama run llama3.3
 ----
 
-List installed models:
+This command starts Ollama's built-in chat interface, from where you interact with the model via a command line interface. It is a minimal interface, and by default the models do not have access to your filesystem or other external systems.
 
-[source,bash]
-----
-./run/ollama ls
-----
+To do more with your models, like to use them as coding assistants, you will need a front-end. For example, to use your models as coding assistants, you will need to install a coding agent and configure your local model as the agent's back-end. See the documentation on link:./front-ends.adoc[front-ends] for further information.
 
-More CLI commands are available, see https://docs.ollama.com/cli.
-
-Use https://docs.ollama.com/api/introduction[the API], served from `http://localhost:11434`, to integrate with Ollama programmatically from your own applications.
+More CLI commands are available for Ollama - see https://docs.ollama.com/cli. You can also use https://docs.ollama.com/api/introduction[the API], served from `http://localhost:11434`, to integrate with Ollama programmatically from your own applications.
