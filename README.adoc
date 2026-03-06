@@ -2,6 +2,57 @@
 
 This project is a self-hosted instance of Ollama, used for self-hosting open-source AI models like DeepSeek-V3/R1, Llama 3.3, and Qwen. Ollama provides a convenient platform for running these models locally, giving users control over their data and the ability to customize the models to their needs.
 
+== Quick Start
+
+=== Prerequisites
+
+* Docker
+* Docker Compose
+
+=== Running with Docker Compose
+
+Start the Ollama service:
+
+[source,bash]
+----
+docker-compose up -d
+----
+
+Stop the service:
+
+[source,bash]
+----
+docker-compose down
+----
+
+=== Using Ollama
+
+Once the container is running, you can interact with Ollama:
+
+Pull a model:
+
+* DeepSeek-V3/R1: `docker exec -it ollama ollama pull deepseek-r1`
+* Llama 3.3: `docker exec -it ollama ollama pull llama3.3`
+* Qwen: `docker exec -it ollama ollama pull qwen`
+
+See https://ollama.com/library for the full model library.
+
+Run a model:
+
+[source,bash]
+----
+docker exec -it ollama ollama run llama3.3
+----
+
+List installed models:
+
+[source,bash]
+----
+docker exec -it ollama ollama list
+----
+
+Access the API at `http://localhost:11434`.
+
 ''''
 
 Copyright © 2020-present Kieran Potts, link:./LICENSE.txt[MIT license]
