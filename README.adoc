@@ -1,8 +1,6 @@
-= Repository template
+= Genies
 
-image::https://github.com/kieranpotts/template/actions/workflows/commit-validation-trunk.yaml/badge.svg?branch=dev[]
-
-This repository is a template for new code repositories.
+This project is a self-hosted instance of Ollama, used for self-hosting open-source AI models like DeepSeek-V3/R1, Llama 3.3, and Qwen. Ollama provides a convenient platform for running these models locally, giving users control over their data and the ability to customize the models to their needs.
 
 ''''
 
