@@ -1,0 +1,48 @@
+= Usage
+
+Make sure the "run" scripts are executable:
+
+[source,bash]
+----
+chmod +x ./run/*
+----
+
+Start the Ollama service in a Docker container:
+
+[source,bash]
+----
+./run/start
+----
+
+Stop it:
+
+[source,bash]
+----
+./run/stop
+----
+
+Use `./run/ollama` to interact with Ollama inside the container. All arguments are passed  verbatim to the `ollama` command inside the container.
+
+To pull a model:
+
+* DeepSeek-V3/R1: `./run/ollama pull deepseek-r1`
+* Llama 3.3: `./run/ollama pull llama3.3`
+* Qwen: `./run/ollama pull qwen`
+
+See https://ollama.com/library for the full model library.
+
+To run a model:
+
+[source,bash]
+----
+./run/ollama run llama3.3
+----
+
+List installed models:
+
+[source,bash]
+----
+./run/ollama list
+----
+
+Access the API at `http://localhost:11434`.

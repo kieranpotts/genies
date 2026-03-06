@@ -1,0 +1,40 @@
+= Requirements
+
+On your host machine you require https://docs.docker.com/get-started/get-docker/[Docker] to run the Ollama service in a container.
+
+In addition, your host machine will need meet the minimum hardware requirements for running local AI models. The following table provides guidelines for the minimum hardware requirements based on the size of the model you intend to run.
+
+[Attributes]
+|===
+|Model size |Example models |RAM/VRAM |GPU |Suitable PCs |Speed
+
+|1-3B parameters
+|Llama 3.2 3B, Qwen3 0.6B
+|4-8 GB
+|Optional (CPU-only is possible but slower)
+|MacBook Air M1/M2, MacBook pro (base), Ultrabooks, some older PCs
+|2-10 tok/s (CPU)
+
+|7-13B parameters
+|Llama 3.1 8B, Qwwen3 8B, Mistral 7B
+|8-16 GB
+|8-12 GB VRAM, RTX 3060/4060 recommended
+|MacBook Pro M1/M2 (16-32 GB), gaming laptops, mid-range PCs
+|20-50 tok/s (GPU)
+
+|30-70B parameters
+|Llama 3.3 70B, Qwen3 32B, GLM-4.6 357B*
+|32+ GB
+|24+ GB VRAM, RTX 4090/A6000
+|Mac Studio / MacBook Pro (Max/Ultra), high-end PCs w/ RTX 3090/4090
+|40-80 tok/s (high-end GPU)
+
+|100B+ parameters
+|Qwen3 235B, GLM-4.7 355B*, Llama 3.1 405B
+|64+ GB
+|Multi-GPU (80GB+ total)
+|Workstations, multi-GPU PCs, dedicated servers
+|Recommended for cloud/enterprise use
+|===
+
+* Assuming Q4 quantization (4-bit precision). Full precision models require ~4x more RAM.
