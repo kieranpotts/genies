@@ -42,7 +42,9 @@ List installed models:
 
 [source,bash]
 ----
-./run/ollama list
+./run/ollama ls
 ----
 
-Access the API at `http://localhost:11434`.
+More CLI commands are available, see https://docs.ollama.com/cli.
+
+Use https://docs.ollama.com/api/introduction[the API], served from `http://localhost:11434`, to integrate with Ollama programmatically from your own applications.
