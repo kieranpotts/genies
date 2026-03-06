@@ -1,58 +1,64 @@
 = Genies
 
-This project is a self-hosted instance of Ollama, used for self-hosting open-source AI models like DeepSeek-V3/R1, Llama 3.3, and Qwen. Ollama provides a convenient platform for running these models locally, giving users control over their data and the ability to customize the models to their needs.
+This project uses Ollama, running in a Docker container, to manage self-hosted open source AI models like DeepSeek-V3/R1, Llama 3.3, and Qwen.
 
-== Quick Start
+Ollama provides a convenient platform for running AI models locally, giving users privacy over the data they feed into the models, and allowing customization of models for specific use cases.
+
+== Documentation
 
 === Prerequisites
 
 * Docker
-* Docker Compose
 
-=== Running with Docker Compose
+=== Usage
 
-Start the Ollama service:
-
-[source,bash]
-----
-docker-compose up -d
-----
-
-Stop the service:
+Make sure the "run" scripts are executable:
 
 [source,bash]
 ----
-docker-compose down
+chmod +x ./run/*
 ----
 
-=== Using Ollama
+Start the Ollama service in a Docker container:
 
-Once the container is running, you can interact with Ollama:
+[source,bash]
+----
+./run/start
+----
 
-Pull a model:
+Stop it:
 
-* DeepSeek-V3/R1: `docker exec -it ollama ollama pull deepseek-r1`
-* Llama 3.3: `docker exec -it ollama ollama pull llama3.3`
-* Qwen: `docker exec -it ollama ollama pull qwen`
+[source,bash]
+----
+./run/stop
+----
+
+Use `./run/ollama` to interact with Ollama inside the container. All arguments are passed  verbatim to the `ollama` command inside the container.
+
+To pull a model:
+
+* DeepSeek-V3/R1: `./run/ollama pull deepseek-r1`
+* Llama 3.3: `./run/ollama pull llama3.3`
+* Qwen: `./run/ollama pull qwen`
 
 See https://ollama.com/library for the full model library.
 
-Run a model:
+To run a model:
 
 [source,bash]
 ----
-docker exec -it ollama ollama run llama3.3
+./run/ollama run llama3.3
 ----
 
 List installed models:
 
 [source,bash]
 ----
-docker exec -it ollama ollama list
+./run/ollama list
 ----
 
 Access the API at `http://localhost:11434`.
 
 ''''
 
-Copyright © 2020-present Kieran Potts, link:./LICENSE.txt[MIT license]
+Copyright © 2026-present Kieran Potts, link:./LICENSE.txt[MIT license]
