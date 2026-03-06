@@ -1,8 +1,12 @@
 = Requirements
 
+== Software
+
 On your host machine you require https://docs.docker.com/get-started/get-docker/[Docker] to run the Ollama service in a container.
 
-In addition, your host machine will need meet the minimum hardware requirements for running local AI models. The following table provides guidelines for the minimum hardware requirements based on the size of the model you intend to run.
+== Hardware
+
+In addition, your host machine will need to meet the minimum hardware requirements for running local AI models. The following table provides guidelines for the minimum hardware requirements based on the size of the model you intend to run.
 
 [Attributes]
 |===
@@ -16,7 +20,7 @@ In addition, your host machine will need meet the minimum hardware requirements 
 |2-10 tok/s (CPU)
 
 |7-13B parameters
-|Llama 3.1 8B, Qwwen3 8B, Mistral 7B
+|Llama 3.1 8B, Qwen3 8B, Mistral 7B
 |8-16 GB
 |8-12 GB VRAM, RTX 3060/4060 recommended
 |MacBook Pro M1/M2 (16-32 GB), gaming laptops, mid-range PCs
@@ -37,4 +41,59 @@ In addition, your host machine will need meet the minimum hardware requirements 
 |Recommended for cloud/enterprise use
 |===
 
-* Assuming Q4 quantization (4-bit precision). Full precision models require ~4x more RAM.
+(* Assuming Q4 quantization (4-bit precision). Full precision models require ~4x more RAM.)
+
+=== GPU
+
+The GPU's VRAM is the most important spec. You should treat this as a hard boundary, not a soft limit. You will get great performance from models that fit entirely into your VRAM. But as soon as a model overflows into system RAM, it will run 5-20x slower - painful for regular use.
+
+Here's a rough VRAM-to-model-size mapping:
+
+* 8–12 GB → 7B–13B models
+* 16–24 GB → up to ~34B models comfortably
+* 32–48 GB → 70B models
+* 80 GB+ → 120B+ models (enterprise territory)
+
+Some options, roughly in order of price, from low to high:
+
+* A single NVIDIA RTX 3090 (24GB), available second hand, can run up to 34B models with long contexts, and 70B models with low-q.
+* Dual RTX 3090s (48GB combined VRAM) will run 70B models, typically for a price less than a single RTX 5090.
+* RTX 4090 (24GB) is faster still. It delivers 128 tokens/second on 8B model.
+* RTX 5090 (32GB) will give you a bit more headroom still. It delivers 213 tokens/second on 8B models. It can run Llama 3.3 405B at 15–20 tokens/second with quantization, compared to the 4090's 8–12 tokens/second. Expensive, but more future-proof.
+* RTX 6000 Ada (48GB) unlocks 70B models.
+
+The AMD Threadripper platform is recommended for dual GPU setups, or if you want to leave room to expand later. More PCIe slots means multiple GPUs don't bottleneck each other.
+
+TIP: Start with one GPU but leave space to add a second one later.
+
+=== System RAM
+
+Aim for at least 64GB.
+
+If you ever want to run models that overflow VRAM into RAM (eg. enormous quantized models), a workstation with 128GB or 256GB of RAM will let you run huge 405B parameter models, which would be impossible to fit in the VRAM of most consumer GPUs — though very slowly.
+
+=== CPU
+
+Once the model is loaded into VRAM, the GPU does 95% of the work. A modest CPU, like an Intel i5 or Ryzen 5, is perfectly fine, as long as you have enough system RAM to feed the GPU during initial loading. An i7 or Ryzen 7 is more than sufficient.
+
+=== Storage
+
+A fast NVMe SSD (1–2TB) for model weights is important. Models can be 4–40GB each and you'll accumulate many. Loading from a slow drive adds seconds to startup time.
+
+=== PSU
+
+Match to your GPU. For example, the RTX 5090 needs a 1000W+ PSU. A 3090 or 4090 build is fine on 850W.
+
+=== Cooling/noise
+
+Consider this carefully, especially if you're running dual GPUs. If you want to minimize noise, choose a large case (allowing good airflow within it) with large fans running slowly.
+
+=== Case
+
+For a modular, expandable AI workstation, you'll want a full tower, or a case that can convert to a rack mount. Good options include the Fractal Design Define 7 XL, Corsair 1000D, and the SilverStone RM510.
+
+=== OS
+
+Mainstream Linux distros are recommended. Driver support is excellent, and Ollama runs natively with full CUDA acceleration. 
+
+(CUDA – Compute Unified Device Architecture – is NVIDIA's proprietary platform for using a GPU as a general-purpose processor, rather than just for graphics. CUDA is the software layer that lets programmers write code that runs on those thousands of GPU cores instead of the CPU. It's been around since 2007 and has become the de facto standard for AI and scientific computing.)
