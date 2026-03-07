@@ -56,7 +56,7 @@ Here's a rough VRAM-to-model-size mapping:
 
 Some options, roughly in order of price, from low to high:
 
-* A single NVIDIA RTX 3090 (24GB), available second hand, can run up to 34B models with long contexts, and 70B models with low-q.
+* A single Nvidia RTX 3090 (24GB), available second hand, can run up to 34B models with long contexts, and 70B models with low-q.
 * Dual RTX 3090s (48GB combined VRAM) will run 70B models, typically for a price less than a single RTX 5090.
 * RTX 4090 (24GB) is faster still. It delivers 128 tokens/second on 8B model.
 * RTX 5090 (32GB) will give you a bit more headroom still. It delivers 213 tokens/second on 8B models. It can run Llama 3.3 405B at 15–20 tokens/second with quantization, compared to the 4090's 8–12 tokens/second. Expensive, but more future-proof.
@@ -64,13 +64,36 @@ Some options, roughly in order of price, from low to high:
 
 The AMD Threadripper platform is recommended for dual GPU setups, or if you want to leave room to expand later. More PCIe slots means multiple GPUs don't bottleneck each other.
 
-TIP: Start with one GPU but leave space to add a second one later.
+TIP: Start with one GPU but choose a motherboard that leaves space to add a second GPU later, should you need to upgrade to run larger models or get better performance.
+
+For the GPU itself, Nvidia leads the industry for AI-optimized CPUs right now. Nvidia's GPUs are the _de factor_ standard for AI, big data, and scientific workloads.
+
+A CPU has a small number of very powerful, versatile cores — typically 8 to 32 — designed to handle complex, sequential logic quickly. A GPU, by contrast, has thousands of much simpler cores designed to do the same operation on many pieces of data simultaneously. That parallel architecture was originally built for rendering pixels, which is a massively parallel problem because every pixel on screen needs calculating independently. But it turns out to be equally well-suited to the kind of matrix mathematics that underlies neural networks.
+
+Thanks to Nvidia's proprietary Compute Unified Device Architecture (CUDA) platform, programmers can write code that runs on those thousands of GPU cores, instead of the CPU. CUDA is what allows Nvidia GPUs to be used for any general-purpose processing, with massive parallelization, not only for graphics.
+
+Running an LLM involves enormous numbers of matrix multiplications — essentially, multiplying huge grids of numbers together, over and over, for every token generated. A CPU does these sequentially and slowly. A CUDA-enabled GPU does them in parallel across thousands of cores simultaneously, which is why inference that takes minutes on a CPU takes seconds on a GPU.
+
+CUDA has been around since 2007, so it has had a long time to mature and build a large ecosystem of software that runs on it. Most AI frameworks and libraries, including Ollama, are optimized for CUDA. When Ollama loads a model and runs it on your GPU, it's using CUDA under the hood to dispatch that work. The difference in practice is dramatic — orders-of-magnitude faster than CPU-only inference.
+
+CUDA comes with a library of pre-built, highly optimized routines that AI frameworks rely on:
+
+* *cuDNN*: Optimized primitives for deep neural network operations (convolutions, attention layers, etc.).
+* *cuBLAS*: Optimized linear algebra (the matrix maths at the heart of LLM inference).
+* *TensorRT*: NVIDIA's inference optimization engine, which can squeeze significantly more performance out of a given GPU.
+* *NCCL*: For multi-GPU communication, used when you're running across two or more GPUs.
+
+Frameworks like PyTorch, TensorFlow, and llama.cpp (which Ollama is built on) all call into these libraries rather than reinventing the wheel, which is why the CUDA ecosystem maturity matters so much practically.
+
+In addition, many AI models are trained and benchmarked on Nvidia hardware. 
+
+So, if you want the best performance and widest compatibility for running local AI models, an Nvidia GPU is the recommended choice. AMD's ROCm (Radeon Open Compute) platform is an alternative, but it has less software support and generally lags behind Nvidia in performance for AI tasks. At this time, you are more likely to hit driver quirks and compatibility gaps when using AMD GPUs for AI inference workloads. Intel's oneAPI is another competitor in this space, buts its ecosystem is much less mature at this time (Ollama, for example, does not support it at all).
 
 === System RAM
 
 Aim for at least 64GB.
 
-If you ever want to run models that overflow VRAM into RAM (eg. enormous quantized models), a workstation with 128GB or 256GB of RAM will let you run huge 405B parameter models, which would be impossible to fit in the VRAM of most consumer GPUs — though very slowly.
+If you ever want to run models that overflow VRAM into RAM (eg. enormous quantized models), a workstation with 128GB or 256GB of RAM will let you run huge 405B parameter models, which would be impossible to fit in the VRAM of most consumer GPUs — though, because of the overflow in system RAM, the models would run very slowly.
 
 === CPU
 
@@ -94,6 +117,4 @@ For a modular, expandable AI workstation, you'll want a full tower, or a case th
 
 === OS
 
-Mainstream Linux distros are recommended. Driver support is excellent, and Ollama runs natively with full CUDA acceleration. 
-
-(CUDA – Compute Unified Device Architecture – is NVIDIA's proprietary platform for using a GPU as a general-purpose processor, rather than just for graphics. CUDA is the software layer that lets programmers write code that runs on those thousands of GPU cores instead of the CPU. It's been around since 2007 and has become the de facto standard for AI and scientific computing.)
+Mainstream Linux distros are recommended. Driver support is excellent, and Ollama runs natively with full CUDA acceleration.
