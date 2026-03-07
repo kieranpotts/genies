@@ -21,6 +21,13 @@ Stop it:
 ./run/stop
 ----
 
+To stop the containers and remove all persisted data (models, configurations, etc.):
+
+[source,bash]
+----
+./run/cleanup
+----
+
 Use `./run/ollama` to interact with Ollama inside the container. All arguments are passed verbatim to the `ollama` program, which runs in the container.
 
 To pull a model:
