@@ -85,7 +85,7 @@ CUDA comes with a library of pre-built, highly optimized routines that AI framew
 
 Frameworks like PyTorch, TensorFlow, and llama.cpp (which Ollama is built on) all call into these libraries rather than reinventing the wheel, which is why the CUDA ecosystem maturity matters so much practically.
 
-In addition, many AI models are trained and benchmarked on Nvidia hardware. 
+In addition, many AI models are trained and benchmarked on Nvidia hardware.
 
 So, if you want the best performance and widest compatibility for running local AI models, an Nvidia GPU is the recommended choice. AMD's ROCm (Radeon Open Compute) platform is an alternative, but it has less software support and generally lags behind Nvidia in performance for AI tasks. At this time, you are more likely to hit driver quirks and compatibility gaps when using AMD GPUs for AI inference workloads. Intel's oneAPI is another competitor in this space, buts its ecosystem is much less mature at this time (Ollama, for example, does not support it at all).
 
