@@ -1,14 +1,30 @@
+# Use Compose v2 format so mem_limit/mem_reservation are supported.
+version: "2.4"
+
 services:
   ollama:
-    image: alpine/ollama:latest
+
+    # Official Ollama image, recommended for model compatibility.
+    image: ollama/ollama:latest
     container_name: ollama
+
+    # Expose Ollama's HTTP API on the host - using the same port.
     ports:
       - "11434:11434"
+
+    # Persist models and configuration across container restarts.
     volumes:
       - ollama_data:/root/.ollama
+
+    # Keep Ollama running unless manually stopped.
     restart: unless-stopped
+
     environment:
-      - OLLAMA_HOST=0.0.0.0:11434
+      - OLLAMA_HOST=0.0.0.0:11434 # Bind the Ollama server to all container interfaces.
+
+    mem_limit: 32g        # Upper bound on container memory usage.
+    mem_reservation: 28g  # Soft reservation to ensure sufficient memory is available.
+    shm_size: 1g          # Shared memory size can help with model loading performance.
 
 volumes:
   ollama_data:
