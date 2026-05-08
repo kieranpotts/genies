@@ -4,10 +4,15 @@ This project uses Ollama, running in a Docker container, to manage self-hosted o
 
 Ollama provides a convenient platform for running AI models locally, giving users privacy over the data they feed into the models, and allowing customization of models for specific use cases.
 
+// TODO: Add notes on security and best practices for running local models - eg. run in containers.
+
 == Documentation
 
 * link:./docs/requirements.adoc[Requirements]
 * link:./docs/usage.adoc[Usage]
+* link:./docs/models.adoc[Models]
+* link:./docs/front-ends.adoc[Front-ends]
+* link:./docs/security.adoc[Security]
 
 ''''
 

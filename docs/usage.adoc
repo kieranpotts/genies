@@ -7,6 +7,38 @@ Make sure the "run" scripts are executable:
 chmod +x ./run/*
 ----
 
+[NOTE]
+====
+If Ollama is already running on your host machine (eg. installed via package manager or running as a service), stop it first to avoid port conflicts on 11434: `sudo systemctl stop ollama` (Linux).
+====
+[NOTE]
+====
+Larger models (eg. 33b parameter models) require significant memory. The Docker container is configured with a 32GB memory limit. If you plan to use models that require more memory, you may need to adjust the `mem_limit` setting in `docker-compose.yml`.
+
+If you are using `docker compose up` outside swarm mode, `deploy.resources` is ignored. Set the compose file version to `2.4` and use `mem_limit`/`mem_reservation` so Docker applies the container memory limits correctly.
+
+If the container still reports only ~8GB available, the Docker engine or VM itself is likely capped at that amount. Increase the Docker daemon / Docker Desktop memory allocation, or run Ollama on a host with the full machine RAM available.
+
+If you are running on Docker Desktop, also verify the engine memory setting in Docker Desktop's Resources configuration.
+====
+
+== Docker memory configuration
+
+If your host has more RAM than the container reports, Docker itself may be limiting memory. Adjust the engine memory allocation first, then restart the Ollama container.
+
+* Docker Desktop: open Settings > Resources > Memory and raise the limit.
+* WSL2: open the `.wslconfig` file in your Windows user directory and set a higher `memory=` value, then restart WSL.
+* Linux Docker daemon: make sure the host has enough free RAM and that no cgroup limit is restricting the service.
+
+Confirm the container-facing memory limit with:
+
+[source,bash]
+----
+docker exec ollama free -h
+----
+
+If that command still reports only ~8GB, the Docker engine is the bottleneck.
+
 Start the Ollama service in a Docker container:
 
 [source,bash]
@@ -21,7 +53,7 @@ Stop it:
 ./run/stop
 ----
 
-To stop the containers and remove all persisted data (models, configurations, etc.):
+To stop the container and remove all persisted data (models, configurations, etc.):
 
 [source,bash]
 ----

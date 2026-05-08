@@ -4,6 +4,14 @@ See https://ollama.com/library for the full library of open source LLMs that can
 
 Popular models include Llama, Qwen, and DeepSeek. But there are lots of variations of these, and you will want to choose one that is going to run well on your particular hardware.
 
+If you want the least risk and the easiest setup, start with a 3-8B model on a local machine with 16-32GB RAM.
+
+== Recommended safe models
+
+* *Llama 3.2 3B* (`ollama run llama3.2:3b`): A reliable general-purpose model that is easy to run on most modern desktops.
+* *Mistral 7B* (`ollama run mistral`): A strong performer for both chat and coding while still being manageable on 16GB+ systems.
+* *Gemma 3 12B* (`ollama run gemma3:12b`): A good choice for users with 32GB RAM who want higher quality without the risk of 33B-scale issues.
+
 The following are some options for models to run on general-purpose laptops and desktops.
 
 == Ultra-light models (1-2B)
@@ -40,9 +48,40 @@ These are popular, well-rounded models that work well on PCS with ~16GB RAM.
 
 == Larger models
 
-You're pushing it a bit, running these models on 16GB RAM, but they should be fine on ~32GB RAM.
+These models are best on systems with at least 32GB RAM and a properly configured Docker environment.
 
-* *Gemma 3 12B* (`ollama run gemma3:12b`)
+* *Gemma 3 12B* (`ollama run gemma3:12b`): A strong general-purpose model that usually fits on a 32GB machine.
+
+== Very large models (33B+)
+
+Very large models like DeepSeek Coder 33B require substantial system resources and can be sensitive to runtime compatibility.
+
+Ensure your host has 32GB+ RAM available, and confirm the Ollama container can see that memory:
+
+[source,bash]
+----
+docker exec ollama free -h
+----
+
+Make sure `docker-compose.yml` is configured with `mem_limit` and `mem_reservation`.
+
+If you encounter errors like "llama runner process has terminated", try these troubleshooting steps:
+
+* Ensure the model is fully downloaded: `./run/ollama ls` should show the model with full size.
+
+* Restart the container: `./run/stop` then `./run/start`.
+
+* Check Docker logs for detailed errors: `docker logs ollama`
+
+* Verify your CPU supports modern instruction sets such as AVX2 or AVX-512.
+
+* If a quantized variant is available, use it to reduce memory requirements.
+
+* If using Docker Desktop, make sure the engine is allocated enough RAM. Check this in *Settings* > *Resources* > *Memory*.
+
+* If the model still fails to load, increase the memory limits in `docker-compose.yml`.
+
+Some 33B models may still fail even when the container has enough memory, because the model or Ollama runtime may not fully support that specific variant.
 
 == Computer programming models
 

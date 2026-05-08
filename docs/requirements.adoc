@@ -6,7 +6,7 @@ On your host machine you require https://docs.docker.com/get-started/get-docker/
 
 == Hardware
 
-In addition, your host machine will need to meet the minimum hardware requirements for running local AI models. The following table provides guidelines for the minimum hardware requirements based on the size of the model you intend to run.
+Your host machine will need sufficient hardware resources to run AI models locally. The following table provides guidelines for the minimum hardware requirements based on the size of the model you intend to run.
 
 [Attributes]
 |===
