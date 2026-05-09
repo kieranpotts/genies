@@ -1,6 +1,3 @@
-# Use Compose v2 format so mem_limit/mem_reservation are supported.
-version: "2.4"
-
 services:
   ollama:
 
