@@ -6,66 +6,25 @@ Popular models include Llama, Qwen, and DeepSeek. But there are lots of variatio
 
 If you want the least risk and the easiest setup, start with a 3-8B model on a local machine with 16-32GB RAM.
 
-== Recommended safe models
-
+.Recommended starter models
+****
 * *Llama 3.2 3B* (`ollama run llama3.2:3b`): A reliable general-purpose model that is easy to run on most modern desktops.
 * *Mistral 7B* (`ollama run mistral`): A strong performer for both chat and coding while still being manageable on 16GB+ systems.
 * *Gemma 3 12B* (`ollama run gemma3:12b`): A good choice for users with 32GB RAM who want higher quality without the risk of 33B-scale issues.
+****
 
-The following are some options for models to run on general-purpose laptops and desktops.
+== Troubleshooting large models
 
-== Ultra-light models (1-2B)
-
-These will run on almost any computer with 8GB+ RAM:
-
-* *Gemma 3 1B* (`ollama run gemma3:1b`): Google's smallest Gemma, surprisingly capable for chat. There's also a Gemma 3n variant (`gemma3n:e2b`) specifically targeting lightweight devices like laptops, behaving like a 2-4B model during inference while being very efficient.
-
-* *Llama 3.2 1B / 3B* (`ollama run llama3.2:1b` or `llama3.2:3b`): Meta's Llama 3.2 goes small with 1B and 3B models. Great for chat and multilingual tasks.
-
-* *Qwen3 1.7B* (`ollama run qwen3:1.7b`): Optimized for long-context and multilingual tasks.
-
-* *DeepSeek R1 1.5B* (`ollama run deepseek-r1:1.5b`): A reasoning-focused model distilled from Qwen 2.5, designed for math and logic tasks and remarkably efficient.
-
-== Small but capable models (3-4B)
-
-These models offer a good balance of quality and speed, and need only ~8GB RAM.
-
-* *Phi-4 Mini* (`ollama run phi4-mini`): A 3.8B parameter model focused on high-quality reasoning, designed for memory- and compute-constrained, latency-sensitive environments.
-
-* *Gemma 3 4B* (`ollama run gemma3:4b`): Solid general-purpose model from Google.
-
-* *SmallThinker 3B* (`ollama run smallthinker`): A compact reasoning model fine-tuned from Qwen2.5-3B-Instruct. Good for CPU-heavy or very low-VRAM setups, and if you want chain-of-thought style behavior.
-
-== Medium models (7-8B)
-
-These are popular, well-rounded models that work well on PCs with ~16GB RAM.
-
-* *Mistral 7B* (`ollama run mistral`): Fast, accurate, and great for coding and following instructions.
-
-* *Qwen3 8B* (`ollama run qwen3:8b`): Strong general-purpose and multilingual model from Alibaba.
-
-* *Llama 3.1 8B* (`ollama run llama3.1:8b`): Runs smoothly on local machines with Ollama's optimizations cutting memory use to fit under 8GB.
-
-== Larger models
-
-These models are best on systems with at least 32GB RAM and a properly configured Docker environment.
-
-* *Gemma 3 12B* (`ollama run gemma3:12b`): Competitive on reasoning and language tasks; a solid step up from 7-8B models without requiring high-end hardware.
-
-== Very large models (33B+)
-
-Very large models like DeepSeek Coder 33B require substantial system resources and can be sensitive to runtime compatibility.
-
-Ensure your host has 32GB+ RAM available, and confirm the Ollama container can see that memory:
+Very large models like DeepSeek Coder 33B require substantial system resources and can be sensitive to runtime compatibility. Ensure your host has 32GB+ RAM available, and confirm the Ollama container can see that memory:
 
 [source,bash]
 ----
 docker exec ollama free -h
 ----
 
-Make sure `docker-compose.yml` is configured with `mem_limit` and `mem_reservation`.
+You can make more memory available to a container by configuring `docker-compose.yml` with `mem_limit` and `mem_reservation` options. If you still encounter errors like "llama runner process has terminated", try these troubleshooting steps:
 
-If you encounter errors like "llama runner process has terminated", try these troubleshooting steps:
+* If using Docker Desktop, make sure the engine is allocated enough RAM. Check this in *Settings* > *Resources* > *Memory*.
 
 * Ensure the model is fully downloaded: `./run/ollama ls` should show the model with full size.
 
@@ -77,12 +36,4 @@ If you encounter errors like "llama runner process has terminated", try these tr
 
 * If a quantized variant is available, use it to reduce memory requirements.
 
-* If using Docker Desktop, make sure the engine is allocated enough RAM. Check this in *Settings* > *Resources* > *Memory*.
-
-* If the model still fails to load, increase the memory limits in `docker-compose.yml`.
-
 Some 33B models may still fail even when the container has enough memory, because the model or Ollama runtime may not fully support that specific variant.
-
-== Computer programming models
-
-For software coding, consider models like *Qwen 2.5 Coder*, *CodeLlama*, and *DeepSeek Coder*. These models have been fine-tuned specifically for coding and tend to outperform general-purpose models on programming tasks.
