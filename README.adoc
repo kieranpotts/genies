@@ -9,7 +9,6 @@ Ollama provides a convenient platform for running AI models locally, giving user
 * link:./docs/requirements.adoc[Requirements]
 * link:./docs/usage.adoc[Usage]
 * link:./docs/models.adoc[Models]
-* link:./docs/security.adoc[Security]
 
 // Not bad practice, but a legitimate tradeoff rather than a universal solution.
 
