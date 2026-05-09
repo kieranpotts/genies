@@ -23,6 +23,13 @@ services:
     mem_reservation: 28g  # Soft reservation to ensure sufficient memory is available.
     shm_size: 1g          # Shared memory size can help with model loading performance.
 
+    networks:
+      - ollama
+
+networks:
+  ollama:
+    name: ollama
+
 volumes:
   ollama_data:
     driver: local
