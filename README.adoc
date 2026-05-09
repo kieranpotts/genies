@@ -9,8 +9,35 @@ Ollama provides a convenient platform for running AI models locally, giving user
 * link:./docs/requirements.adoc[Requirements]
 * link:./docs/usage.adoc[Usage]
 * link:./docs/models.adoc[Models]
-* link:./docs/front-ends.adoc[Front-ends]
 * link:./docs/security.adoc[Security]
+
+// Not bad practice, but a legitimate tradeoff rather than a universal solution.
+
+// Running models in containers works well for:
+
+// Development/testing environments
+// Scalable deployments (multiple instances)
+// Reproducible, isolated setups
+// Non-latency-sensitive workloads
+// It's slower/more brittle for:
+
+// Interactive apps needing low latency (like your GitHub Chat use case)
+// GPU workloads (overhead, driver complexity)
+// Real-time inference
+// Long-lived streaming connections (what you hit)
+// Why you experienced slowness:
+
+// Container networking adds latency
+// Model loading happens on first inference (slow in containers)
+// Streaming responses through Docker proxy layers
+// Resource contention between containers
+// Better approaches for your situation:
+
+// Run Ollama natively on the host (what you had initially) — simpler, faster
+// Use a remote Ollama endpoint if models live elsewhere
+// Pre-load models (which you discovered works)
+// Run models on the host, devcontainer communicates via host.docker.internal
+// For development workflows like yours, native Ollama + devcontainer calling it remotely is often the sweet spot: you get container isolation for your dev environment without the model inference overhead.
 
 ''''
 

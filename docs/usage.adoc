@@ -94,7 +94,7 @@ To run a model:
 
 This command starts Ollama's built-in chat interface, from where you interact with the model via a command line interface. It is a minimal interface, and by default the models do not have access to your filesystem or other external systems.
 
-To do more with your models, like to use them as coding assistants, you will need a front-end. For example, to use your models as coding assistants, you will need to install a coding agent and configure your local model as the agent's back-end. See the documentation on link:./front-ends.adoc[front-ends] for further information.
+To do more with your models, like to use them as coding assistants, you will need to install a front-end — a coding agent configured to use your local model as its back-end.
 
 More CLI commands are available for Ollama - see https://docs.ollama.com/cli. You can also use https://docs.ollama.com/api/introduction[the API], served from `http://localhost:11434`, to integrate with Ollama programmatically from your own applications.
 
