@@ -8,7 +8,7 @@ On your host machine you require https://docs.docker.com/get-started/get-docker/
 
 Your host machine will need sufficient hardware resources to run AI models locally. The following table provides guidelines for the minimum hardware requirements based on the size of the model you intend to run.
 
-[Attributes]
+[options="header"]
 |===
 |Model size |Example models |RAM/VRAM |GPU |Suitable PCs |Speed
 
@@ -27,14 +27,14 @@ Your host machine will need sufficient hardware resources to run AI models local
 |20-50 tok/s (GPU)
 
 |30-70B parameters
-|Llama 3.3 70B, Qwen3 32B, GLM-4.6 357B*
+|Llama 3.3 70B, Qwen3 32B
 |32+ GB
 |24+ GB VRAM, RTX 4090/A6000
 |Mac Studio / MacBook Pro (Max/Ultra), high-end PCs w/ RTX 3090/4090
 |40-80 tok/s (high-end GPU)
 
 |100B+ parameters
-|Qwen3 235B, GLM-4.7 355B*, Llama 3.1 405B
+|Qwen3 235B, GLM-4.6 357B*, GLM-4.7 355B*, Llama 3.1 405B
 |64+ GB
 |Multi-GPU (80GB+ total)
 |Workstations, multi-GPU PCs, dedicated servers
@@ -66,7 +66,7 @@ The AMD Threadripper platform is recommended for dual GPU setups, or if you want
 
 TIP: Start with one GPU but choose a motherboard that leaves space to add a second GPU later, should you need to upgrade to run larger models or get better performance.
 
-For the GPU itself, Nvidia leads the industry for AI-optimized CPUs right now. Nvidia's GPUs are the _de factor_ standard for AI, big data, and scientific workloads.
+For the GPU itself, Nvidia leads the industry for AI-optimized GPUs right now. Nvidia's GPUs are the _de facto_ standard for AI, big data, and scientific workloads.
 
 A CPU has a small number of very powerful, versatile cores — typically 8 to 32 — designed to handle complex, sequential logic quickly. A GPU, by contrast, has thousands of much simpler cores designed to do the same operation on many pieces of data simultaneously. That parallel architecture was originally built for rendering pixels, which is a massively parallel problem because every pixel on screen needs calculating independently. But it turns out to be equally well-suited to the kind of matrix mathematics that underlies neural networks.
 
